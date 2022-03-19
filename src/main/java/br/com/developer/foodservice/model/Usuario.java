@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -28,4 +29,5 @@ public class Usuario implements Serializable {
         this.user = user;
         this.password = password;
     }
+
 }
