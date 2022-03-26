@@ -42,7 +42,7 @@ public class TestConfig implements CommandLineRunner {
         produtoRepository.saveAll(Arrays.asList(pr1, pr2, pr3));
 
         Usuario u1 = new Usuario(null,"Eduardo Sena" ,"esena", "1234");
-        Usuario u2 = new Usuario(null,"André Luis","amoreira" ,"4321");
+        Usuario u2 = new Usuario(null,"André Luis","aluis" ,"4321");
         Usuario u3 = new Usuario(null,"Marcelo Mendes","mmendes" ,"1496");
 
         usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));

@@ -26,4 +26,16 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario) {
         return repository.save(usuario);
     }
+
+    public void deletarPorId(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Usuario atualizar(Long id, Usuario usuario) {
+        repository.findById(id).map(u -> {
+            usuario.setId(u.getId());
+            return usuario;
+        });
+        return repository.save(usuario);
+    }
 }

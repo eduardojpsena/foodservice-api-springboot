@@ -38,4 +38,15 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(usuario);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
+        service.deletarPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+        service.atualizar(id, usuario);
+        return ResponseEntity.ok().body(usuario);
+    }
 }
