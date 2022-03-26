@@ -1,20 +1,23 @@
 package br.com.developer.foodservice.model;
 
-import br.com.developer.foodservice.emun.StatusPedido;
+import br.com.developer.foodservice.model.emun.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_pedido")
-public class Pedido{
+public class Pedido implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer mesa;
-    private Integer status;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momento;
@@ -23,15 +26,20 @@ public class Pedido{
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    private Integer status;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
+
     public Pedido() {
     }
 
-    public Pedido(Long id, Integer mesa, StatusPedido status, Instant momento, Usuario usuario) {
+    public Pedido(Long id, Integer mesa, Instant momento, Usuario usuario, StatusPedido status) {
         this.id = id;
         this.mesa = mesa;
-        setStatus(status);
         this.momento = momento;
         this.usuario = usuario;
+        setStatus(status);
     }
 
     public Long getId() {
@@ -49,6 +57,7 @@ public class Pedido{
     public void setMesa(Integer mesa) {
         this.mesa = mesa;
     }
+
 
     public StatusPedido getStatus() {
         return StatusPedido.valueOf(status);
@@ -74,5 +83,17 @@ public class Pedido{
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public Double getTotal(){
+        double total = 0.0;
+        for (ItemPedido item: itens) {
+            total += item.getSubtotal();
+        }
+        return total;
     }
 }
