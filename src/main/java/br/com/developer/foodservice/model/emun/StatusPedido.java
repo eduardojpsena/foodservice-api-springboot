@@ -1,16 +1,15 @@
-package br.com.developer.foodservice.emun;
+package br.com.developer.foodservice.model.emun;
 
-public enum StatusPedido {
+public enum StatusItemPedido {
 
-    RECEBIDO(1),
-    PREPARANDO(2),
-    ENTREGUE(3),
-    PAGO(4),
-    CANCELADO(5);
+    PREPARANDO(1),
+    ENTREGUE(2),
+    PAGO(3),
+    CANCELADO(4);
 
     private int codido;
 
-    private StatusPedido(int codido) {
+    private StatusItemPedido(int codido) {
         this.codido = codido;
     }
 
@@ -18,8 +17,8 @@ public enum StatusPedido {
         return codido;
     }
 
-    public static StatusPedido valueOf(int codido) {
-        for (StatusPedido value: StatusPedido.values()) {
+    public static StatusItemPedido valueOf(int codido) {
+        for (StatusItemPedido value: StatusItemPedido.values()) {
             if (value.getCodido() == codido) {
                 return value;
             }
