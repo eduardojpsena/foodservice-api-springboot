@@ -1,7 +1,7 @@
 package br.com.developer.foodservice.rest;
 
-import br.com.developer.foodservice.model.Categoria;
-import br.com.developer.foodservice.services.CategoriaService;
+import br.com.developer.foodservice.model.Produto;
+import br.com.developer.foodservice.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CatetgoriaController {
+@RequestMapping(value = "/produtos")
+public class ProdutoController {
 
     @Autowired
-    private CategoriaService service;
+    private ProdutoService service;
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> findAll() {
-        List<Categoria> list = service.findAll();
+    public ResponseEntity<List<Produto>> findAll() {
+        List<Produto> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Categoria> findById(@PathVariable Long id) {
-        Categoria Categoria = service.findById(id);
-        return ResponseEntity.ok().body(Categoria);
+    public ResponseEntity<Produto> findById(@PathVariable Long id) {
+        Produto Produto = service.findById(id);
+        return ResponseEntity.ok().body(Produto);
     }
 }

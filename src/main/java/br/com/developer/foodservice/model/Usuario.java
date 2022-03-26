@@ -1,33 +1,70 @@
 package br.com.developer.foodservice.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
-public class Usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "tb_usuario")
+public class Usuario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String user;
-    private String password;
+    private String nome;
+    private String login;
+    private String senha;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String user, String password) {
+    public Usuario(Long id, String nome, String login, String senha) {
         this.id = id;
-        this.user = user;
-        this.password = password;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
 }

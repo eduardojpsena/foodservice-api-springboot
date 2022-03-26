@@ -1,7 +1,7 @@
 package br.com.developer.foodservice.services;
 
-import br.com.developer.foodservice.model.Usuario;
-import br.com.developer.foodservice.repository.UsuarioRepository;
+import br.com.developer.foodservice.model.Categoria;
+import br.com.developer.foodservice.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class CategoriaService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private CategoriaRepository repository;
 
-    public List<Usuario> findAll() {
+    public List<Categoria> findAll() {
         return repository.findAll();
     }
 
-    public Usuario findById(Long id) {
-        Optional<Usuario> usuario= repository.findById(id);
-        return usuario.get();
+    public Categoria findById(Long id) {
+        Optional<Categoria> Categoria= repository.findById(id);
+        return Categoria.get();
     }
 }
