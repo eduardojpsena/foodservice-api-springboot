@@ -2,9 +2,14 @@ package br.com.developer.foodservice.services;
 
 import br.com.developer.foodservice.model.Usuario;
 import br.com.developer.foodservice.repository.UsuarioRepository;
+import br.com.developer.foodservice.services.exceptions.DatabaseException;
+import br.com.developer.foodservice.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +25,7 @@ public class UsuarioService {
 
     public Usuario buscarPorId(Long id) {
         Optional<Usuario> usuario= repository.findById(id);
-        return usuario.get();
+        return usuario.orElseThrow(() -> new ResourceNotFoundException(id, "Usuário não encontrado"));
     }
 
     public Usuario salvar(Usuario usuario) {
@@ -28,14 +33,21 @@ public class UsuarioService {
     }
 
     public void deletarPorId(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id, "Usuário não encontrado");
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
-    public Usuario atualizar(Long id, Usuario usuario) {
+    public void atualizar(Long id, Usuario usuario) {
+
         repository.findById(id).map(u -> {
             usuario.setId(u.getId());
-            return usuario;
-        });
-        return repository.save(usuario);
+            return repository.save(usuario);
+        }).orElseThrow(() -> new ResourceNotFoundException(id, "Usuário não encontrado"));
+
     }
 }
