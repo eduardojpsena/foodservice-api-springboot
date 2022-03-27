@@ -35,9 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
         categoriaRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
 
-        Produto pr1 = new Produto(null, "Hamburguer", "Pão, carne e salada", 5.00, "", c1);
-        Produto pr2 = new Produto(null, "x-Bacon", "Pão, carne, salada e bacon", 7.10, "", c1);
-        Produto pr3 = new Produto(null, "Coca-Cola", "Lata 350ml", 4.50, "", c4);
+        Produto pr1 = new Produto(null, "Hamburguer", "Pão, carne e salada", 5.00, c1);
+        Produto pr2 = new Produto(null, "x-Bacon", "Pão, carne, salada e bacon", 7.10, c1);
+        Produto pr3 = new Produto(null, "Coca-Cola", "Lata 350ml", 4.50, c4);
 
         produtoRepository.saveAll(Arrays.asList(pr1, pr2, pr3));
 

@@ -2,10 +2,11 @@ package br.com.developer.foodservice.model.emun;
 
 public enum StatusPedido {
 
-    PREPARANDO(1),
-    ENTREGUE(2),
-    PAGO(3),
-    CANCELADO(4);
+    PEDIDO_RECEBIDO(1),
+    PREPARANDO(2),
+    ENTREGUE(3),
+    PAGO(4),
+    CANCELADO(5);
 
     private int codido;
 

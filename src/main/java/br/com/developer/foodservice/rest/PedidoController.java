@@ -4,11 +4,10 @@ import br.com.developer.foodservice.model.Pedido;
 import br.com.developer.foodservice.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,14 +18,31 @@ public class PedidoController {
     private PedidoService service;
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> findAll() {
-        List<Pedido> list = service.findAll();
+    public ResponseEntity<List<Pedido>> buscarTodos() {
+        List<Pedido> list = service.buscarTodos();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Pedido> findById(@PathVariable Long id) {
-        Pedido Pedido = service.findById(id);
-        return ResponseEntity.ok().body(Pedido);
+    public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
+        Pedido pedido = service.buscarPorId(id);
+        return ResponseEntity.ok().body(pedido);
     }
+
+    @PostMapping
+    public ResponseEntity<Pedido> salvar(@RequestBody Pedido pedido) {
+        pedido = service.salvar(pedido);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(pedido.getId()).toUri();
+        return ResponseEntity.created(uri).body(pedido);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Pedido> atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
+        service.atualizarStatus(id, pedido);
+        return ResponseEntity.ok().body(pedido);
+    }
+
+
 }

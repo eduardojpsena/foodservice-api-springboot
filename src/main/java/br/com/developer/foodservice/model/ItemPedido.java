@@ -16,7 +16,7 @@ public class ItemPedido implements Serializable {
     @EmbeddedId
     private ItemPedidoPrimaryKey id = new ItemPedidoPrimaryKey();
 
-    private Integer quantidade;
+    private Integer quantidade = 1;
 
     //private Double preço;
 

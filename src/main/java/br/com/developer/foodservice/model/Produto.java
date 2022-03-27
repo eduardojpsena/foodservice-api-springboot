@@ -15,7 +15,6 @@ public class Produto implements Serializable {
     private String nome;
     private String descricao;
     private Double preco;
-    private String imgUrl;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -24,12 +23,11 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria) {
+    public Produto(Long id, String nome, String descricao, Double preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.imgUrl = imgUrl;
         this.categoria = categoria;
     }
 
@@ -63,14 +61,6 @@ public class Produto implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
     }
 
     public Categoria getCategoria() {

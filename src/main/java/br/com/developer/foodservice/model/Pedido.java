@@ -89,11 +89,27 @@ public class Pedido implements Serializable {
         return itens;
     }
 
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     public Double getTotal(){
         double total = 0.0;
         for (ItemPedido item: itens) {
             total += item.getSubtotal();
         }
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", mesa=" + mesa +
+                ", momento=" + momento +
+                ", usuario=" + usuario +
+                ", status=" + status +
+                ", itens=" + itens +
+                '}';
     }
 }
