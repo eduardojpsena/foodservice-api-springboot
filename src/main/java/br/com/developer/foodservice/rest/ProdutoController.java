@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ProdutoController {
 
     @Operation(summary = "Salvar produto", description = "Cria um novo produto e salva na base de dados")
     @PostMapping
-    public ResponseEntity<Produto> salvar(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> salvar(@RequestBody @Valid Produto produto) {
         produto = service.salvar(produto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")

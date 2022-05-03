@@ -1,6 +1,8 @@
 package br.com.developer.foodservice.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -12,8 +14,11 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo nome é obrigatório")
     private String nome;
+    @NotEmpty(message = "O campo descrição é obrigatório")
     private String descricao;
+    @NotNull(message = "O campo preço é obrigatório")
     private Double preco;
 
     @ManyToOne

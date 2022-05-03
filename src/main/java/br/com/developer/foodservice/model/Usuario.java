@@ -3,6 +3,7 @@ package br.com.developer.foodservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,12 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "O campo nome é obrigatório")
     private String nome;
+    @NotEmpty(message = "O campo login é obrigatório")
     private String login;
+    @NotEmpty(message = "O campo senha é obrigatório")
     private String senha;
 
     @JsonIgnore
